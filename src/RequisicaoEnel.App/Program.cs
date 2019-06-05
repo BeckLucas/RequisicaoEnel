@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RequisicaoEnel.App.Configuration;
 
 namespace RequisicaoEnel.App
 {
@@ -6,7 +10,13 @@ namespace RequisicaoEnel.App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var builder = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json")
+                 .Build();
+
+            var serviceProvider = new ServiceCollection()
+                .DeclareConfiguration(builder);
         }
     }
 }
